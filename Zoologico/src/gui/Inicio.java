@@ -17,6 +17,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JTextField;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -59,7 +61,7 @@ public class Inicio extends JFrame implements ActionListener{
 	private JTable TablaLogs;
 	private JButton BusquedaBoton;
 	private JButton btnGuardarDatos;
-	private JButton NewOficioBtn;
+	
 	private JButton btnAadir;
 	private JButton btnProveedores;
 	private JButton btnBusquedaAnimal;
@@ -86,8 +88,11 @@ public class Inicio extends JFrame implements ActionListener{
 	private JButton BtnNuevaEspecie;
 	private JButton btnNuevoRecinto;
 	private JButton BusquedaEspecie;
-	private JButton btnNuevoEmp;
-	private JComboBox comboBoxOficios;
+	private JButton btnNuevoEmp; //emple
+	private JComboBox comboBoxOficios; //emple
+	private JButton btnEditar; //oficio
+	private JButton NewOficioBtn; //oficio
+	private JButton btnGuardarCambios; //oficio
 
 	
 	//TODO quitar?
@@ -134,7 +139,7 @@ public class Inicio extends JFrame implements ActionListener{
 		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\1dam\\Desktop\\Cheetah-print-white-and-black-animal-skin-fur-texture-and-background-600x381.jpg"));
 		lblNewLabel.setBounds(0, 0, 570, 354);
 		InicioTab.add(lblNewLabel);
-		
+		//Empleados
 		JPanel EmpleadosTab = new JPanel();
 		PestañasGeneral.addTab("Empleados", null, EmpleadosTab, null);
 		EmpleadosTab.setLayout(null);
@@ -241,6 +246,7 @@ public class Inicio extends JFrame implements ActionListener{
 		btnNuevoEmp.addActionListener(this);
 		btnNuevoEmp.setBounds(410, 255, 131, 23);
 		DatosTab.add(btnNuevoEmp);
+		//Fin empleados
 		//Oficios
 		JPanel OficiosTab = new JPanel();
 		PestañasEmple.addTab("Oficios", null, OficiosTab, null);
@@ -268,21 +274,25 @@ public class Inicio extends JFrame implements ActionListener{
 		OficiosTab.add(SueldoLabel);
 		
 		CodText = new JTextField();
+		CodText.setEditable(false);
 		CodText.setBounds(151, 131, 110, 20);
 		OficiosTab.add(CodText);
 		CodText.setColumns(10);
 		
 		NombreText_1 = new JTextField();
+		NombreText_1.setEditable(false);
 		NombreText_1.setBounds(151, 215, 110, 20);
 		OficiosTab.add(NombreText_1);
 		NombreText_1.setColumns(10);
 		
 		DescText = new JTextField();
+		DescText.setEditable(false);
 		DescText.setBounds(366, 131, 166, 20);
 		OficiosTab.add(DescText);
 		DescText.setColumns(10);
 		
 		SueldoText = new JTextField();
+		SueldoText.setEditable(false);
 		SueldoText.setBounds(366, 215, 123, 20);
 		OficiosTab.add(SueldoText);
 		SueldoText.setColumns(10);
@@ -295,16 +305,18 @@ public class Inicio extends JFrame implements ActionListener{
 		lblElijaElOficio.setBounds(51, 55, 159, 14);
 		OficiosTab.add(lblElijaElOficio);
 		
-		JButton btnEditar = new JButton("Editar");
+		btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(this);
 		btnEditar.setBounds(52, 286, 89, 23);
 		OficiosTab.add(btnEditar);
+		btnEditar.addActionListener(this);
 		
-		JButton btnGuardarCambios = new JButton("Guardar cambios");
+		btnGuardarCambios = new JButton("Guardar cambios");
 		btnGuardarCambios.setEnabled(false);
 		btnGuardarCambios.addActionListener(this);
 		btnGuardarCambios.setBounds(151, 286, 89, 23);
 		OficiosTab.add(btnGuardarCambios);
+		btnGuardarCambios.addActionListener(this);
 		try {
 			cargarOficios();
 		} catch (ClassNotFoundException | IOException | SQLException e) {
@@ -312,7 +324,7 @@ public class Inicio extends JFrame implements ActionListener{
 			e.printStackTrace();
 		}
 		//Fin oficios
-		
+		//Comida
 		JPanel ComidaTab = new JPanel();
 		PestañasGeneral.addTab("Comida", null, ComidaTab, null);
 		ComidaTab.setLayout(null);
@@ -338,7 +350,8 @@ public class Inicio extends JFrame implements ActionListener{
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
 		tabbedPane.setBounds(0, 0, 570, 354);
 		AnimalesTab.add(tabbedPane);
-		
+		//Fin comida
+		//Animales
 		JPanel Animales = new JPanel();
 		tabbedPane.addTab("Animales", null, Animales, null);
 		Animales.setLayout(null);
@@ -367,7 +380,8 @@ public class Inicio extends JFrame implements ActionListener{
 		ListaAnimalDatos = new JList();
 		ListaAnimalDatos.setBounds(359, 92, 153, 223);
 		Animales.add(ListaAnimalDatos);
-		
+		//Fin animales
+		//Especies
 		JPanel Especies = new JPanel();
 		tabbedPane.addTab("Especies", null, Especies, null);
 		Especies.setLayout(null);
@@ -397,7 +411,8 @@ public class Inicio extends JFrame implements ActionListener{
 		ListaEspeciesDatos = new JList();
 		ListaEspeciesDatos.setBounds(354, 87, 153, 228);
 		Especies.add(ListaEspeciesDatos);
-		
+		//Fin especies
+		//Recintos
 		JPanel Recintos = new JPanel();
 		tabbedPane.addTab("Recintos", null, Recintos, null);
 		Recintos.setLayout(null);
@@ -427,7 +442,8 @@ public class Inicio extends JFrame implements ActionListener{
 		ListaRecintosDatos = new JList();
 		ListaRecintosDatos.setBounds(363, 98, 153, 228);
 		Recintos.add(ListaRecintosDatos);
-		
+		//Fin recintos
+		//Usuarios
 		JPanel UsuariosTab = new JPanel();
 		PestañasGeneral.addTab("Usuarios", null, UsuariosTab, null);
 		UsuariosTab.setLayout(null);
@@ -480,7 +496,8 @@ public class Inicio extends JFrame implements ActionListener{
 		ListaUsuarios = new JList();
 		ListaUsuarios.setBounds(49, 108, 166, 216);
 		UsuariosTab.add(ListaUsuarios);
-		
+		//Fin usuarios
+		//log
 		JPanel LogTab = new JPanel();
 		PestañasGeneral.addTab("Logs", null, LogTab, null);
 		LogTab.setLayout(null);
@@ -529,20 +546,10 @@ public class Inicio extends JFrame implements ActionListener{
 		lblImgFondo.setIcon(new ImageIcon("C:\\Users\\1dam\\Desktop\\33cbabd9393782e76901358102f1f8a6.jpg"));
 		lblImgFondo.setBounds(0, 0, 679, 426);
 		getContentPane().add(lblImgFondo);
-		
+		//fin log
 	}
 
-	private void cargarOficios() throws ClassNotFoundException, IOException, SQLException {
-		Manager manager = new Manager();
-		
-		
-		ArrayList <String> ofi =manager.getNombreOficios();
-		for(int i=0;i<ofi.size();i++) {
-			comboBoxOficios.addItem(ofi.get(i));
-		}
-		comboBoxOficios.setSelectedIndex(-1);
-		
-	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -632,16 +639,60 @@ public class Inicio extends JFrame implements ActionListener{
 			InsertRecinto IntRec = new InsertRecinto();
 			IntRec.setVisible(true);
 		}
-		if(e.getSource().equals(NewOficioBtn)) {
+		if(e.getSource().equals(NewOficioBtn)) {	//nuevo oficio
 			NuevoOficio nuevo = new NuevoOficio(true);
 			nuevo.setVisible(true);
 		}
-		if(e.getSource().equals(btnNuevoEmp)) {
+		if(e.getSource().equals(btnNuevoEmp)) {		//nuevo empleado
 			NuevoEmpleado newEmp = new NuevoEmpleado(true);
 			newEmp.setVisible(true);
 		}
+		if(e.getSource().equals(btnEditar)) {		//editar oficio
+			try {
+				editarOficio();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+			
+	
+	}
+
+	private void editarOficio() throws Exception {		//editar oficio
+		boolean esta;
+		esta=false;
+		if(comboBoxOficios.getSelectedIndex()==-1) {
+			JOptionPane.showMessageDialog(this, "Seleccione un oficio");
+			esta=false;
+		}else {
+			esta=true;
+			CodText.setEnabled(true);
+			DescText.setEnabled(true);
+			SueldoText.setEnabled(true);
+			NombreText_1.setEnabled(true); 
+		}
+		if(esta==true) {
+			
+			getDatosOficio();
+		}
 		
 		
+	}
+	private void getDatosOficio() throws Exception {
+		Manager manager = new Manager();
+		Oficio ofi = manager.getDatosOficio();	
+	}
+	
+	private void cargarOficios() throws ClassNotFoundException, IOException, SQLException {		//cargar oficios
+		Manager manager = new Manager();
+		
+		
+		ArrayList <String> ofi =manager.getNombreOficios();
+		for(int i=0;i<ofi.size();i++) {
+			comboBoxOficios.addItem(ofi.get(i));
+		}
+		comboBoxOficios.setSelectedIndex(-1);
 		
 	}
 }

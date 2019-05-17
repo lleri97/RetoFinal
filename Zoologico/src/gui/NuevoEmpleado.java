@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
-
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -22,6 +20,7 @@ import control.Manager;
 import javax.swing.JButton;
 
 public class NuevoEmpleado extends JDialog implements ActionListener{
+	private static final long serialVersionUID = 1L;
 	private JTextField textNombre;
 	private JTextField textApellido;
 	private JTextField textTLF;
@@ -130,7 +129,25 @@ public class NuevoEmpleado extends JDialog implements ActionListener{
 		btnVolver = new JButton("Volver");
 		btnVolver.setBounds(275, 229, 89, 23);
 		getContentPane().add(btnVolver);
+		btnVolver.addActionListener(this);
 
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource().equals(btnAadir)) {
+			try {
+				anadirEmpleado();
+				
+			} catch (ClassNotFoundException | SQLException | IOException e1) {
+			
+				e1.printStackTrace();
+			}
+		}if(e.getSource().equals(btnVolver)) {
+			volverEmple();
+		}
+
+		
 	}
 	public void anadirEmpleado() throws ClassNotFoundException, SQLException, IOException {
 		boolean error=false;
@@ -151,7 +168,7 @@ public class NuevoEmpleado extends JDialog implements ActionListener{
 		  try{		
 		   	fechaNac=LocalDate.parse(fechaAux, formateador);
 		  } catch(DateTimeParseException e){
-		   	error=true;
+		   	error=true;  
 			System.out.println("Error,Introduce fecha con formato dd/mm/aaaa: ");
 		  }
 		}while (error);
@@ -164,18 +181,11 @@ public class NuevoEmpleado extends JDialog implements ActionListener{
 		emp.setCodRec(textCodRec.getText());
 		manager.AñadirEmpleado(emp);
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource().equals(btnAadir)) {
-			try {
-				anadirEmpleado();
-			} catch (ClassNotFoundException | SQLException | IOException e1) {
-			
-				e1.printStackTrace();
-			}
-		}
-
+	private void volverEmple() {
+		this.dispose();
 		
 	}
+
+
+
 }

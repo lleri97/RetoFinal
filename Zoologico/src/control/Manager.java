@@ -2,7 +2,6 @@ package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -13,13 +12,13 @@ import clases.Oficio;
 import clases.Recinto;
 
 public class Manager {
-	
+	/*
 	public boolean getLogin(String id, String pass) throws Exception {
 
 		DBManager dbManager = new DBManager();
 		boolean isLogin = dbManager.getLogin(id, pass);
 		return isLogin;
-	}
+	}*/
 	
 	public Animal getAnimal(String animal) throws IOException, ClassNotFoundException, SQLException {
 		DBManager dbManager = new DBManager();
@@ -43,21 +42,27 @@ public class Manager {
 		DBManager dbmanager = new DBManager();
 		dbmanager.AñadirAnimal(ani);
 	}
-	public void AñadirOficio(Oficio ofi) throws IOException, ClassNotFoundException, SQLException {
+	public void AñadirOficio(Oficio ofi) throws IOException, ClassNotFoundException, SQLException {		//Oficios
 		DBManager dbmanager = new DBManager();
 		dbmanager.AñadirOficio(ofi);
 		
 	}
 
-	public void AñadirEmpleado(Empleado emp) throws ClassNotFoundException, SQLException, IOException {
+	public void AñadirEmpleado(Empleado emp) throws ClassNotFoundException, SQLException, IOException {		//Empleados
 		DBManager dbmanager = new DBManager();
 		dbmanager.AñadirEmpleado(emp);
 	}
 
-	public ArrayList<String> getNombreOficios() throws IOException, ClassNotFoundException, SQLException {
+	public ArrayList<String> getNombreOficios() throws IOException, ClassNotFoundException, SQLException {		//Cargar nombre oficios
 		DBManager dbManager = new DBManager();
 		ArrayList <String> ofi = dbManager.getNombreOficio();
 		Collections.sort(ofi);
 		return ofi;
+	}
+	public Oficio getDatosOficio() throws Exception {
+		DBManager dbmanager = new DBManager();
+		Oficio ofi =dbmanager.getDatosOficio();
+		return ofi;
+		
 	}
 }

@@ -15,6 +15,10 @@ import javax.swing.JComboBox;
 
 public class InsertEspecie extends JDialog implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textCodEspecie;
 	private JTextField textNameEspecie;
