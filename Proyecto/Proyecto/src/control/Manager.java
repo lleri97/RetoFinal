@@ -64,10 +64,30 @@ public class Manager {
 		n=dbmanager.getTamaño(codEsp);
 		return n;
 	}
-	public int getTamañoRecin(String codRec) throws IOException, ClassNotFoundException, SQLException {
+	public int getTamañoRecin(String codAni) throws IOException, ClassNotFoundException, SQLException {
 		int n=0;
 		DBManager dbmanager=new DBManager();
-		n=dbmanager.getTamañoRecin(codRec);
+		n=dbmanager.getTamañoAni(codAni);
 		return n;
+	}
+	public ArrayList<Animal> getDatosListaAni (String codEsp) throws ClassNotFoundException, SQLException{
+		DBManager dbmanager = new DBManager();
+		ArrayList <Animal> anis = dbmanager.getDatosListaAni(codEsp);
+		return anis; 
+	}
+	public ArrayList <Especie> getDatosListaEsp(String nombreEsp) throws ClassNotFoundException, SQLException{
+		DBManager dbmanager = new DBManager();
+		ArrayList <Especie> especs = dbmanager.getDatosListaEsp(nombreEsp);
+		return especs;
+	}
+	public String getDatosListaRec(String codRec) throws ClassNotFoundException, SQLException {
+		DBManager dbmanager = new DBManager();
+		String recins = dbmanager.getDatosListaRec(codRec);
+		return recins;
+	}
+	public ArrayList <String> getCodsRec() throws  SQLException, ClassNotFoundException{
+		DBManager dbmanager = new DBManager();
+		ArrayList <String> CodsRec= dbmanager.getCodsRec();
+		return CodsRec;
 	}
 }

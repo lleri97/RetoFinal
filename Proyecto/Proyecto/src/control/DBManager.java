@@ -24,7 +24,7 @@ public class DBManager {
 
 		private void connect() throws ClassNotFoundException, SQLException {
 			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://192.168.20.50/reto";
+			String url = "jdbc:mysql://192.168.20.110/reto";
 			con = DriverManager.getConnection(url,"cualquiera","1");
 			con.createStatement();
 		}
@@ -104,6 +104,7 @@ public class DBManager {
 	public void AñadirAnimal(Animal ani) throws ClassNotFoundException, SQLException {
 		this.connect();
 		String sql="Insert into animales values (?,?,?,?,?,?,?)";
+		stmt= con.prepareStatement(sql);
 		stmt.setString(1, ani.getCodAni());
 		stmt.setString(4, ani.getCodEsp());
 		stmt.setString(7, ani.getDesc());
@@ -118,6 +119,7 @@ public class DBManager {
 	public void AñadirEspecie(Especie espe) throws ClassNotFoundException, SQLException {
 		this.connect();
 		String sql="Insert into especies values(?,?,?)";
+		stmt= con.prepareStatement(sql);
 		stmt.setString(1, espe.getCodEsp());
 		stmt.setString(2, espe.getNomEsp());
 		stmt.setString(3, espe.getAlimentacion());
@@ -127,6 +129,7 @@ public class DBManager {
 	public void AñadirRecinto(Recinto recin) throws ClassNotFoundException, SQLException {
 		this.connect();
 		String sql="Insert into recintos values (?,?)";
+		stmt= con.prepareStatement(sql);
 		stmt.setString(1, recin.getCodRec());
 		stmt.setString(2, recin.getDesc());
 		stmt.executeQuery();
@@ -137,7 +140,7 @@ public class DBManager {
 		this.connect();
 		
 		String sql= "select nom_esp from especies";
-		
+		stmt= con.prepareStatement(sql);
 		ResultSet rs=stmt.executeQuery();
 		while(rs.next()) {
 			espArray.add(rs.getString("nomEsp"));
@@ -150,7 +153,7 @@ public class DBManager {
 		ArrayList<String> codigosRec = new ArrayList<String>();
 		this.connect();
 		String sql= "Select codRec from recintos";
-		
+		stmt= con.prepareStatement(sql);
 		ResultSet rs=stmt.executeQuery(sql);
 		while(rs.next()){
 			codigosRec.add(rs.getString("codRec"));
@@ -163,7 +166,7 @@ public class DBManager {
 		ArrayList<String> codigosComi = new ArrayList<String>();
 		this.connect();
 		String sql= "Select codCom from comida";
-		
+		stmt= con.prepareStatement(sql);
 		ResultSet rs=stmt.executeQuery(sql);
 		while(rs.next()){
 			codigosComi.add(rs.getString("codCom"));
@@ -177,6 +180,7 @@ public class DBManager {
 		this.connect();
 	
 		String sql="Select count(codEsp) from animales where codEsp= ?";
+		stmt= con.prepareStatement(sql);
 		stmt.setString(1, codEsp);
 		ResultSet rs=stmt.executeQuery(sql);
 		while(rs.next()){
@@ -191,6 +195,7 @@ public class DBManager {
 		this.connect();
 	
 		String sql="Select count(codRec) from recintos where codRec= ?";
+		stmt= con.prepareStatement(sql);
 		stmt.setString(1, codRec);
 		ResultSet rs=stmt.executeQuery(sql);
 		while(rs.next()){
@@ -200,6 +205,67 @@ public class DBManager {
 		this.disconnect();
 		return n;
 	}
+	public ArrayList<Animal> getDatosListaAni (String codEsp) throws SQLException, ClassNotFoundException{
+		ArrayList <Animal> animals = new ArrayList<Animal>();
+		Animal animal = new Animal();
+		this.connect();
+		
+		String sql="String codAni,Descripcion from animales where codEsp= ?";
+		stmt= con.prepareStatement(sql);
+		stmt.setString(1, "codEsp");
+		ResultSet rs=stmt.executeQuery(sql);
+		while(rs.next()) {
+			animal.setCodAni(rs.getString("codAni"));
+			animal.setDesc(rs.getString("Descripcion"));
+			animals.add(animal);
+		}
+		this.disconnect();
+		return animals;
+		
+	}
+	public ArrayList <Especie> getDatosListaEsp(String nombreEsp) throws ClassNotFoundException, SQLException{
+		ArrayList<Especie> Especies = new ArrayList<>();
+		Especie especie= new Especie();
+		this.connect();
+		String sql="Select codEsp,alimentacion from especies where=?";
+		stmt= con.prepareStatement(sql);
+		stmt.setString(1, "nombreEsp");
+		ResultSet rs= stmt.executeQuery(sql);
+		while(rs.next()) {
+			especie.setCodEsp(rs.getString("codEsp"));;
+			especie.setAlimentacion(rs.getString("alimentacion"));
+			Especies.add(especie);
+		}
+		this.disconnect();
+		return Especies;
+		
+	}
+	public String getDatosListaRec(String codRec) throws ClassNotFoundException, SQLException{
+		String descp = null;
+		this.connect();
+		String sql="select describ from recintos where codRec=?";
+		stmt= con.prepareStatement(sql);
+		stmt.setString(1, codRec);
+		ResultSet rs=stmt.executeQuery(sql);
+		while(rs.next()) {
+			descp=rs.getString(1);
+		}
+		this.disconnect();
+		return descp;
+	}
+	public ArrayList <String> getCodsRec() throws ClassNotFoundException, SQLException{
+		ArrayList<String> CodsRec = new ArrayList<>();
+		this.connect();
+		String sql="select codRec from recintos";
+		stmt= con.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()) {
+			CodsRec.add(rs.getString(1));
+		}
+		this.disconnect();
+		return CodsRec;
+	}
+	
 	}
 
 

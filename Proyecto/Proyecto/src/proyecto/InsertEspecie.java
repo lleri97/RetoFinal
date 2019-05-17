@@ -81,6 +81,7 @@ public class InsertEspecie extends JDialog implements ActionListener {
 		btnAadirEspecie = new JButton("A\u00F1adir especie");
 		btnAadirEspecie.setBounds(9, 166, 201, 23);
 		contentPanel.add(btnAadirEspecie);
+		btnAadirEspecie.addActionListener(this);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

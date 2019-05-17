@@ -3,6 +3,8 @@ package proyecto;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -38,6 +40,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.JComboBox;
 
 public class Inicio extends JFrame implements ActionListener{
 
@@ -60,7 +63,6 @@ public class Inicio extends JFrame implements ActionListener{
 	private JTextField textClave;
 	private JTextField textBusquedaAnimal;
 	private JTextField TextBusquedaEspecie;
-	private JTextField textBusquedaRecintos;
 	private JTable TablaLogs;
 	private JButton BusquedaBoton;
 	private JButton btnGuardarDatos;
@@ -71,7 +73,6 @@ public class Inicio extends JFrame implements ActionListener{
 	private JButton btnNuevoAnimal;
 	private JButton BusquedaEspecie;
 	private JButton BtnNuevaEspecie;
-	private JButton BusquedaRecinto; 
 	private JButton btnNuevoRecinto;
 	private JButton BusquedaUsu;
 	private JButton btnResetearPasswd;
@@ -80,12 +81,20 @@ public class Inicio extends JFrame implements ActionListener{
 	private JList ListaOficios; 
 	private JList ListaComida;
 	private JList ListaAnimal; 
-	private JList ListaAnimalDatos;
 	private JList ListaEspecies;
-	private JList ListaEspeciesDatos;
-	private JList ListaRecintos; 
-	private JList ListaRecintosDatos; 
 	private JList ListaUsuarios; 
+	private JTextField TextCodEspe;
+	private JTextField textCodAnimal;
+	private JTextField textDescAni;
+	private JTextField textEstado;
+	private JTextField textEdad;
+	private JTextField textCodRecin;
+	private JTextField textCodComida;
+	private JTextField textCodEsp;
+	private JTextField textNombreEsp;
+	private JTextField textAlimentacion;
+	private JTextField textDescripRecin;
+	private JComboBox comboBoxRecintos;
 
 	/**
 	 * Launch the application.
@@ -102,8 +111,10 @@ public class Inicio extends JFrame implements ActionListener{
 
 	/**
 	 * Create the dialog.
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public Inicio() {
+	public Inicio() throws ClassNotFoundException, SQLException {
 		setBounds(100, 100, 658, 426);
 		getContentPane().setLayout(null);
 		contentPanel.setBounds(0, 0, 1, 229);
@@ -320,17 +331,97 @@ public class Inicio extends JFrame implements ActionListener{
 		Animales.add(lblBusquedaDeAnimal);
 		
 		btnNuevoAnimal = new JButton("Nuevo animal");
-		btnNuevoAnimal.setBounds(375, 49, 113, 23);
+		btnNuevoAnimal.setBounds(442, 281, 113, 23);
 		Animales.add(btnNuevoAnimal);
 		btnNuevoAnimal.addActionListener(this);
 		
 		ListaAnimal =  new JList();
-		ListaAnimal.setBounds(47, 92, 153, 223);
+		ListaAnimal.setBounds(47, 81, 153, 223);
 		Animales.add(ListaAnimal);
 		
-		ListaAnimalDatos = new JList();
-		ListaAnimalDatos.setBounds(359, 92, 153, 223);
-		Animales.add(ListaAnimalDatos);
+		JLabel lblCodigoAnimal = new JLabel("Codigo animal:");
+		lblCodigoAnimal.setBounds(234, 118, 70, 14);
+		Animales.add(lblCodigoAnimal);
+		
+		JLabel lblCodigoEspecie = new JLabel("Codigo especie:");
+		lblCodigoEspecie.setBounds(234, 93, 81, 14);
+		Animales.add(lblCodigoEspecie);
+		
+		JLabel lblDescripcion = new JLabel("Descripcion:");
+		lblDescripcion.setBounds(234, 143, 63, 14);
+		Animales.add(lblDescripcion);
+		
+		JLabel lblEstado = new JLabel("Estado:");
+		lblEstado.setBounds(234, 168, 37, 14);
+		Animales.add(lblEstado);
+		
+		JLabel lblEdad = new JLabel("Edad:");
+		lblEdad.setBounds(234, 193, 37, 14);
+		Animales.add(lblEdad);
+		
+		JLabel lblCodigoRecinto = new JLabel("Codigo recinto:");
+		lblCodigoRecinto.setBounds(234, 218, 81, 14);
+		Animales.add(lblCodigoRecinto);
+		
+		JLabel lblCodigoComida = new JLabel("Codigo comida");
+		lblCodigoComida.setBounds(234, 243, 70, 14);
+		Animales.add(lblCodigoComida);
+		
+		TextCodEspe = new JTextField();
+		TextCodEspe.setEditable(false);
+		TextCodEspe.setBounds(346, 90, 139, 20);
+		Animales.add(TextCodEspe);
+		TextCodEspe.setColumns(10);
+		
+		textCodAnimal = new JTextField();
+		textCodAnimal.setEditable(false);
+		textCodAnimal.setBounds(346, 115, 139, 20);
+		Animales.add(textCodAnimal);
+		textCodAnimal.setColumns(10);
+		
+		textDescAni = new JTextField();
+		textDescAni.setEditable(false);
+		textDescAni.setBounds(346, 140, 139, 20);
+		Animales.add(textDescAni);
+		textDescAni.setColumns(10);
+		
+		textEstado = new JTextField();
+		textEstado.setEditable(false);
+		textEstado.setBounds(346, 165, 139, 20);
+		Animales.add(textEstado);
+		textEstado.setColumns(10);
+		
+		textEdad = new JTextField();
+		textEdad.setEditable(false);
+		textEdad.setBounds(346, 190, 139, 20);
+		Animales.add(textEdad);
+		textEdad.setColumns(10);
+		
+		textCodRecin = new JTextField();
+		textCodRecin.setEditable(false);
+		textCodRecin.setBounds(346, 215, 139, 20);
+		Animales.add(textCodRecin);
+		textCodRecin.setColumns(10);
+		
+		textCodComida = new JTextField();
+		textCodComida.setEditable(false);
+		textCodComida.setBounds(346, 240, 139, 20);
+		Animales.add(textCodComida);
+		textCodComida.setColumns(10);
+		
+		JButton btnEditar = new JButton("Editar");
+		btnEditar.setBounds(355, 19, 89, 23);
+		Animales.add(btnEditar);
+		
+		JButton btnGuardarCambiosAni = new JButton("Guardar cambios");
+		btnGuardarCambiosAni.setEnabled(false);
+		btnGuardarCambiosAni.setBounds(406, 49, 113, 23);
+		Animales.add(btnGuardarCambiosAni);
+		
+		JButton btnEliminar_1 = new JButton("Eliminar");
+		btnEliminar_1.setEnabled(false);
+		btnEliminar_1.setBounds(295, 49, 89, 23);
+		Animales.add(btnEliminar_1);
 		//Fin Animal
 		//Fin Recintos
 		
@@ -358,7 +449,7 @@ public class Inicio extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		BtnNuevaEspecie.setBounds(354, 53, 113, 23);
+		BtnNuevaEspecie.setBounds(425, 284, 113, 23);
 		Especies.add(BtnNuevaEspecie);
 		BtnNuevaEspecie.addActionListener(this);
 		
@@ -366,9 +457,47 @@ public class Inicio extends JFrame implements ActionListener{
 		ListaEspecies.setBounds(40, 87, 153, 223);
 		Especies.add(ListaEspecies);
 		
-		ListaEspeciesDatos = new JList();
-		ListaEspeciesDatos.setBounds(354, 87, 153, 228);
-		Especies.add(ListaEspeciesDatos);
+		JLabel lblNewLabel = new JLabel("Codigo especie:");
+		lblNewLabel.setBounds(219, 111, 81, 14);
+		Especies.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Nombre especie:");
+		lblNewLabel_1.setBounds(219, 161, 81, 14);
+		Especies.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Alimentacion:");
+		lblNewLabel_2.setBounds(219, 211, 65, 14);
+		Especies.add(lblNewLabel_2);
+		
+		textCodEsp = new JTextField();
+		textCodEsp.setEditable(false);
+		textCodEsp.setBounds(322, 108, 153, 20);
+		Especies.add(textCodEsp);
+		textCodEsp.setColumns(10);
+		
+		textNombreEsp = new JTextField();
+		textNombreEsp.setEditable(false);
+		textNombreEsp.setBounds(322, 158, 153, 20);
+		Especies.add(textNombreEsp);
+		textNombreEsp.setColumns(10);
+		
+		textAlimentacion = new JTextField();
+		textAlimentacion.setEditable(false);
+		textAlimentacion.setBounds(322, 208, 153, 20);
+		Especies.add(textAlimentacion);
+		textAlimentacion.setColumns(10);
+		
+		JButton btnEditar_1 = new JButton("Editar");
+		btnEditar_1.setBounds(338, 25, 89, 23);
+		Especies.add(btnEditar_1);
+		
+		JButton btnGuardarCambiosEsp = new JButton("Guardar cambios");
+		btnGuardarCambiosEsp.setBounds(393, 52, 126, 23);
+		Especies.add(btnGuardarCambiosEsp);
+		
+		JButton btnEliminar_2 = new JButton("Eliminar");
+		btnEliminar_2.setBounds(271, 52, 89, 23);
+		Especies.add(btnEliminar_2);
 		//Fin Especies
 		
 		//Recintos
@@ -376,31 +505,44 @@ public class Inicio extends JFrame implements ActionListener{
 		tabbedPane.addTab("Recintos", null, Recintos, null);
 		Recintos.setLayout(null);
 		
-		textBusquedaRecintos = new JTextField();
-		textBusquedaRecintos.setColumns(10);
-		textBusquedaRecintos.setBounds(45, 59, 153, 20);
-		Recintos.add(textBusquedaRecintos);
-		
-		BusquedaRecinto = new JButton("");
-		BusquedaRecinto.setBounds(208, 58, 38, 23);
-		Recintos.add(BusquedaRecinto);
-		
 		JLabel label_2 = new JLabel("Busqueda de recintos ");
-		label_2.setBounds(61, 34, 149, 14);
+		label_2.setBounds(46, 34, 149, 14);
 		Recintos.add(label_2);
 		
 		btnNuevoRecinto = new JButton("Nuevo recinto");
 		btnNuevoRecinto.addActionListener(this);
-		btnNuevoRecinto.setBounds(363, 58, 113, 23);
+		btnNuevoRecinto.setBounds(442, 284, 113, 23);
 		Recintos.add(btnNuevoRecinto);
 		
-		ListaRecintos = new JList();
-		ListaRecintos.setBounds(45, 98, 153, 223);
-		Recintos.add(ListaRecintos);
+		JLabel lblNewLabel_3 = new JLabel("Descripcion: ");
+		lblNewLabel_3.setBounds(235, 139, 78, 14);
+		Recintos.add(lblNewLabel_3);
 		
-		ListaRecintosDatos = new JList();
-		ListaRecintosDatos.setBounds(363, 98, 153, 228);
-		Recintos.add(ListaRecintosDatos);
+		textDescripRecin = new JTextField();
+		textDescripRecin.setEditable(false);
+		textDescripRecin.setBounds(235, 164, 296, 109);
+		Recintos.add(textDescripRecin);
+		textDescripRecin.setColumns(10);
+		
+		JButton btnEditar_2 = new JButton("Editar");
+		btnEditar_2.setBounds(338, 58, 89, 23);
+		Recintos.add(btnEditar_2);
+		
+		JButton btnGuardarCambiosRecin = new JButton("Guardar cambios");
+		btnGuardarCambiosRecin.setBounds(437, 58, 118, 23);
+		Recintos.add(btnGuardarCambiosRecin);
+		
+		JButton btnNewButton = new JButton("Eliminar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnNewButton.setBounds(235, 58, 89, 23);
+		Recintos.add(btnNewButton);
+		
+		comboBoxRecintos = new JComboBox();
+		comboBoxRecintos.setBounds(30, 59, 149, 20);
+		Recintos.add(comboBoxRecintos);
 		
 		//Usuarios
 		JPanel UsuariosTab = new JPanel();
@@ -479,6 +621,16 @@ public class Inicio extends JFrame implements ActionListener{
 			cancelButton.setActionCommand("Cancel");
 		}
 		//Fin Logs
+		CargarDatosInicio();
+			
+	}
+
+	private void CargarDatosInicio() throws ClassNotFoundException, SQLException {
+		Manager manager = new Manager();
+		ArrayList <String> DescrRec = manager.getCodsRec();
+		for(int i=0;i<DescrRec.size();i++) {
+			comboBoxRecintos.addItem(DescrRec.get(i));
+		}
 	}
 
 	@Override
@@ -488,54 +640,37 @@ public class Inicio extends JFrame implements ActionListener{
 
 			
 				ArrayList<Animal> animales = new ArrayList <Animal>();
+				DefaultListModel lista = new DefaultListModel<>();
 				try {
 					animales.add(manager.getAnimal(textBusquedaAnimal.getText()));
 					
 					for(int i=0;i<animales.size();i++) {	
-						ListaAnimal.setSelectedIndex(i);
+						lista.addElement(i);
 						}
 				
 				} catch (ClassNotFoundException | IOException | SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-			
+			ListaAnimal.setModel(lista);
 		}
 		if(e.getSource() == BusquedaEspecie) {
 			Manager manager = new Manager();
-			
+			DefaultListModel lista = new DefaultListModel<>();
 			ArrayList <Especie> especies = new ArrayList <Especie>();
 			
 			try {
 					especies.add(manager.getEspecie(TextBusquedaEspecie.getText()));
 				
 					for(int i=0;i<especies.size();i++) {
-						ListaEspecies.setSelectedIndex(i);
+						lista.addElement(i);
 					}
 				
 				} catch (ClassNotFoundException | IOException | SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
-		}
-		if(e.getSource() == BusquedaRecinto) {
-			Manager manager = new Manager();
-			
-			ArrayList <Recinto> recintos = new ArrayList <Recinto>();
-			
-			try {
-					recintos.add(manager.getRecinto(textBusquedaRecintos.getText()));
-				
-					for(int i=0;i<recintos.size();i++) {
-						ListaEspecies.setSelectedIndex(i);
-					}
-				
-				} catch (ClassNotFoundException | IOException | SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			
-				}
+			ListaEspecies.setModel(lista);
 		}
 		if(e.getSource()==BtnNuevaEspecie) {
 			InsertEspecie IntEsp = new InsertEspecie();
